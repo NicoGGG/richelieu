@@ -1,0 +1,2 @@
+include *.md
+recursive-include richelieu *.txt

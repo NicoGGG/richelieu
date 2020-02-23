@@ -11,7 +11,11 @@ python3.6+
 ## Usage
 As of current state, Richelieu is only a one column data generator
 ```
-python3 main.py type cardinality <size>
+virtualenv -p python3 venv
+source venv/bin/activate
+python setup.py install
+
+richelieu *type* *cardinality* <size>
 ```
 
 ## Plan

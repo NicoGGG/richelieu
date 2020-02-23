@@ -21,8 +21,8 @@ class Generator(object):
 	def __init__(self, data_type, cardinality, size=0):
 		super(Generator, self).__init__()
 		self.data_type = data_type
-		self.cardinality = cardinality
-		self.size = size
+		self.cardinality = int(cardinality)
+		self.size = int(size)
 		self.return_list = []
 		if size == 0 or size < cardinality:
 			self.size = self.cardinality
