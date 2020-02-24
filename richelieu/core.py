@@ -15,7 +15,7 @@ import sys
 
 __all__ = ['generator']
 
-def generator(args: List[Union[str, bytes]] = sys.argv,):
+def main(args: List[Union[str, bytes]] = sys.argv,):
 	"""
 	The main function.
 	Pre-process args, handle some special types of invocations,
