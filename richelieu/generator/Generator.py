@@ -1,5 +1,6 @@
 import random
-
+import os
+import sys
 
 class Generator(object):
 	"""
@@ -18,14 +19,17 @@ class Generator(object):
 
 	Additional methods will allow you print it, write it into json file, or into csv file.
 	"""
-	def __init__(self, data_type, cardinality, size=0):
+	def __init__(self, data_type, cardinality, size=0, filename=""):
 		super(Generator, self).__init__()
 		self.data_type = data_type
 		self.cardinality = int(cardinality)
 		self.size = int(size)
 		self.return_list = []
-		if size == 0 or size < cardinality:
+		self.filename = filename
+		if self.size == 0 or self.size < self.cardinality:
 			self.size = self.cardinality
+		if self.filename == "":
+			self.filename = os.path.dirname(os.path.realpath(__file__)) + "/alpha_dict.txt"
 		print("data_type:", self.data_type)
 		print("cardinality:", self.cardinality)
 		print("size:", self.size)
@@ -36,23 +40,30 @@ class Generator(object):
 			self.generate_string()
 		elif self.data_type == 'int':
 			self.generate_int()
-		
+	
+	def read_dict(self):
+		with open(self.filename) as f:
+			self.word_list = f.read().splitlines()
+			random.shuffle(self.word_list)
+
 	def generate_string(self):
 		"""
 		Generates size number of string, each one being duplicated cardinality times. Check for duplicates to garantee requested cardinality
 		WARNING: word_list * cardinality cannot be smaller than size. If that happens, return_list length will not exceed word_list * cardinality
 		"""
-		self.word_list = ['hello', 'world']
-		if len(self.word_list) * self.cardinality < self.size:
+		#self.word_list = ['hello', 'world']
+		self.read_dict()
+		word_list_length = len(self.word_list)
+		if word_list_length * self.cardinality < self.size:
 			self.size = len(self.word_list) * self.cardinality
 			print("changed size to", self.size)
 		while len(self.return_list) < self.size:
-			self.random_int = random.choice(self.word_list)
+			self.random_word = self.word_list.pop()
 			i = 0
-			if self.random_int in self.return_list:
-				continue
+			# if self.random_word in self.return_list:
+			# 	continue
 			while len(self.return_list) < self.size and i < self.cardinality:
-				self.return_list += [self.random_int]
+				self.return_list += [self.random_word]
 				i += 1
 
 	def generate_int(self):
@@ -60,19 +71,15 @@ class Generator(object):
 		Generates size number of int, each one being duplicated cardinality times. Check for duplicates to garantee requested cardinality
 		WARNING: int_list * cardinality cannot be smaller than size. If that happens, return_list length will not exceed int_list * cardinality
 		"""
-		print('int')
-		self.int_list = [1, 2, 3, 4, 5]
-		if len(self.int_list) * self.cardinality < self.size:
-			self.size = len(self.int_list) * self.cardinality
-			print("changed size to", self.size)
-		while len(self.return_list) < self.size:
-			self.random_int = random.choice(self.int_list)
+		# Not checking for int_list < cardinality because it is assumed cardinality is never > 9223372036854775807
+		current_int = 0
+		while current_int < self.size:
+			random_int = current_int
 			i = 0
-			if self.random_int in self.return_list:
-				continue
 			while len(self.return_list) < self.size and i < self.cardinality:
-				self.return_list += [self.random_int]
+				self.return_list += [random_int]
 				i += 1
+			current_int += 1
 
 	def print_return_list(self):
 		print(self.return_list)

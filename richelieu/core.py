@@ -1,10 +1,5 @@
 """
-	Implémentation de la proclamation de la bonne parole.
- 
-	Usage:
- 
-	>>> from sm_lib import proclamer
-	>>> proclamer()
+	Data Generator
 """
 import argparse
 import os
@@ -13,7 +8,7 @@ from typing import List, Union
 from .generator.Generator import *
 import sys
 
-__all__ = ['generator']
+__all__ = ['main']
 
 def main(args: List[Union[str, bytes]] = sys.argv,):
 	"""
