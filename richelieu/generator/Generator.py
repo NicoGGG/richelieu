@@ -2,6 +2,8 @@ import random
 import os
 import sys
 
+from .values.string import StringValue
+
 class Generator(object):
 	"""
 	Object that takes a string representing a type, and an int representing cardinality as args
@@ -28,8 +30,6 @@ class Generator(object):
 		self.filename = filename
 		if self.size == 0 or self.size < self.cardinality:
 			self.size = self.cardinality
-		if self.filename == "":
-			self.filename = os.path.dirname(os.path.realpath(__file__)) + "/alpha_dict.txt"
 		print("data_type:", self.data_type)
 		print("cardinality:", self.cardinality)
 		print("size:", self.size)
@@ -37,7 +37,11 @@ class Generator(object):
 	def generate_data(self):
 		print("generating...")
 		if self.data_type == 'string':
-			self.generate_string()
+			StringValue().nextValue()
+		elif self.data_type == 'int':
+			self.generate_int()
+		elif self.data_type == '':
+			self.generate_int()
 		elif self.data_type == 'int':
 			self.generate_int()
 	

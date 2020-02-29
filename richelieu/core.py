@@ -5,7 +5,7 @@ import argparse
 import os
 import platform
 from typing import List, Union
-from .generator.Generator import *
+from .generator.generator import *
 import sys
 
 __all__ = ['main']
@@ -26,7 +26,7 @@ def main(args: List[Union[str, bytes]] = sys.argv,):
 
 def usage():
 	print("usage:")
-	print("	python3 main.py type cardinality <size>")
+	print("python3 main.py type cardinality <size>")
 
 def decode_raw_args(
 	args: List[Union[str, bytes]],
