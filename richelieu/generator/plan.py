@@ -1,6 +1,9 @@
-from values.value import Value
+from .generator.column import Column
+
 class Plan:
+    
     def __init__(self):
-        self.
-    def add(self, value: Value):
-        print("aze")
+        self.columns = []
+
+    def add(self, column: Column):
+        self.columns.append(column)
